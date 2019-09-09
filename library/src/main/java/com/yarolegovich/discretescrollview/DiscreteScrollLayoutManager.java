@@ -5,16 +5,17 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityRecordCompat;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityRecordCompat;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yarolegovich.discretescrollview.transform.DiscreteScrollItemTransformer;
 
@@ -164,8 +165,8 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
 
     protected void updateRecyclerDimensions(RecyclerView.State state) {
         boolean dimensionsChanged = !state.isMeasuring()
-                && (recyclerViewProxy.getWidth()  != viewWidth
-                ||  recyclerViewProxy.getHeight() != viewHeight);
+                && (recyclerViewProxy.getWidth() != viewWidth
+                || recyclerViewProxy.getHeight() != viewHeight);
         if (dimensionsChanged) {
             viewWidth = recyclerViewProxy.getWidth();
             viewHeight = recyclerViewProxy.getHeight();
@@ -754,7 +755,7 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
         @Override
         protected int calculateTimeForScrolling(int dx) {
             float dist = Math.min(Math.abs(dx), scrollToChangeCurrent);
-            return (int) (Math.max(0.01f, dist / scrollToChangeCurrent) * timeForItemSettle);
+            return (int) (Math.max(6f, dist / scrollToChangeCurrent) * timeForItemSettle);
         }
 
         @Nullable
