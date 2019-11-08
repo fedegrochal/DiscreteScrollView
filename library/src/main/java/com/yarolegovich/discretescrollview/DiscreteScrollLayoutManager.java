@@ -57,6 +57,8 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
 
     protected boolean isFirstOrEmptyLayout;
 
+    private boolean disabled = false;
+
     private Context context;
 
     private int timeForItemSettle;
@@ -94,6 +96,10 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
         this.orientationHelper = orientation.createHelper();
         this.recyclerViewProxy = new RecyclerViewProxy(this);
         this.transformClampItemCount = DEFAULT_TRANSFORM_CLAMP_ITEM_COUNT;
+    }
+
+    public void setDisabled(boolean status) {
+        this.disabled = status;
     }
 
     @Override
@@ -306,7 +312,7 @@ class DiscreteScrollLayoutManager extends RecyclerView.LayoutManager {
     }
 
     protected int scrollBy(int amount, RecyclerView.Recycler recycler) {
-        if (recyclerViewProxy.getChildCount() == 0) {
+        if (this.disabled || recyclerViewProxy.getChildCount() == 0) {
             return 0;
         }
 

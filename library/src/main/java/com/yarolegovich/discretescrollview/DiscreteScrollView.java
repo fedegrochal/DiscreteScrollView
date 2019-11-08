@@ -32,6 +32,7 @@ public class DiscreteScrollView extends RecyclerView {
     private List<OnItemChangedListener> onItemChangedListeners;
 
     private boolean isOverScrollEnabled;
+    private boolean disabled = false;
 
     public DiscreteScrollView(Context context) {
         super(context);
@@ -65,6 +66,15 @@ public class DiscreteScrollView extends RecyclerView {
                 getContext(), new ScrollStateListener(),
                 DSVOrientation.values()[orientation]);
         setLayoutManager(layoutManager);
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+        this.layoutManager.setDisabled(disabled);
+    }
+
+    public boolean isDisabled() {
+        return disabled;
     }
 
     @Override
@@ -105,7 +115,7 @@ public class DiscreteScrollView extends RecyclerView {
         layoutManager.setItemTransformer(transformer);
     }
 
-    public void setItemTransitionTimeMillis(@IntRange(from = 10) int millis) {
+    public void setItemTransitionTimeMillis(@IntRange(from = 3) int millis) {
         layoutManager.setTimeForItemSettle(millis);
     }
 
